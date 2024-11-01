@@ -1,4 +1,36 @@
 
+function calculateAge() {
+    // Get the birth date input from the user
+    let birthDate = new Date(document.getElementById('birthDate').value);
+    
+    // Get the current date using Moment.js
+    let currentDate = moment();
+
+    // Calculate the next birthday by setting the birth date to the current year
+    let nextBirthday = moment(birthDate).year(currentDate.year());
+
+    // If the next birthday for the current year has already passed,
+    // adjust the next birthday to the following year
+    if (currentDate.isAfter(nextBirthday)) {
+        nextBirthday.add(1, 'year');
+    }
+
+    // Calculate the number of full months remaining until the next birthday
+    let monthsRemaining = nextBirthday.diff(currentDate, 'months');
+
+    // Calculate the remaining days after subtracting the full months
+    let daysRemaining = nextBirthday.diff(currentDate.add(monthsRemaining, 'months'), "days");
+
+    // Log the result to the console for debugging purposes
+    console.log(`Remaining Time until next birthday is : ${monthsRemaining} months and ${daysRemaining} days.`);
+
+    // Display the result in an HTML element with the id 'result'
+    document.getElementById('result').textContent = 
+        `Remaining Time until next birthday is : ${monthsRemaining} months and ${daysRemaining} days.`;
+}
+
+
+
 // const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 // const date = new Date();
 // let day = weekDays[date.getDay()]
@@ -102,32 +134,3 @@
 
 // console.log(`Time until next birthday: ${monthsRemaining} months and ${daysRemaining} days.`);
 // document.write(`Time until next birthday: ${monthsRemaining} months and ${daysRemaining} days.`)
-function calculateAge() {
-    // Get the birth date input from the user
-    let birthDate = new Date(document.getElementById('birthDate').value);
-    
-    // Get the current date using Moment.js
-    let currentDate = moment();
-
-    // Calculate the next birthday by setting the birth date to the current year
-    let nextBirthday = moment(birthDate).year(currentDate.year());
-
-    // If the next birthday for the current year has already passed,
-    // adjust the next birthday to the following year
-    if (currentDate.isAfter(nextBirthday)) {
-        nextBirthday.add(1, 'year');
-    }
-
-    // Calculate the number of full months remaining until the next birthday
-    let monthsRemaining = nextBirthday.diff(currentDate, 'months');
-
-    // Calculate the remaining days after subtracting the full months
-    let daysRemaining = nextBirthday.diff(currentDate.add(monthsRemaining, 'months'), "days");
-
-    // Log the result to the console for debugging purposes
-    console.log(`Remaining Time until next birthday is : ${monthsRemaining} months and ${daysRemaining} days.`);
-
-    // Display the result in an HTML element with the id 'result'
-    document.getElementById('result').textContent = 
-        `Remaining Time until next birthday is : ${monthsRemaining} months and ${daysRemaining} days.`;
-}
